@@ -1,2 +1,2 @@
 # android-estudos
-Repositório de estudos android
+Repositório de estudos de desenvolvimento android
