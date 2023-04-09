@@ -81,14 +81,10 @@
         android:id="@+id/btnSalvar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/txt_button_salvar"
-        app:layout_constraintBottom_toTopOf="@+id/btnFinalizar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnLimpar"
-        app:layout_constraintTop_toBottomOf="@+id/editTelefoneContato"
-        app:layout_constraintVertical_bias="0.863" />
+        tools:layout_editor_absoluteY="246dp" />
 
     <Button
         android:id="@+id/btnFinalizar"
