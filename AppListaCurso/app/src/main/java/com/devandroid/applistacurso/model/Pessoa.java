@@ -10,7 +10,7 @@ public class Pessoa {
 
     private String telefone;
 
-    public Pessoa(){
+    public Pessoa() {
     }
 
     public String getPrimeiroNome() {
