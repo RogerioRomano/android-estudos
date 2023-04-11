@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.devandroid.applistacurso.R;
 import com.devandroid.applistacurso.model.Pessoa;
@@ -14,21 +16,12 @@ public class MainActivity extends AppCompatActivity {
 
     Pessoa pessoa;
     Pessoa outraPessoa;
-    String dadosPessoa;
-
-    String dadosOutraPessoa;
     EditText editPrimeiroNome;
-
     EditText editSobrenomeAluno;
-
     EditText editNomeCurso;
-
     EditText editTelefoneContato;
-
     Button btnLimpar;
-
     Button btnSalvar;
-
     Button btnFinalizar;
 
     @Override
@@ -36,18 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         pessoa = new Pessoa();
-        pessoa.setPrimeiroNome("Rogério");
-        pessoa.setSobreNome("Romano");
-        pessoa.setCursoDesejado("Java");
-        pessoa.setTelefone("11-929886655");
-
-        outraPessoa = new Pessoa();
-        outraPessoa.setPrimeiroNome("Luiz");
-        outraPessoa.setSobreNome("Alvez");
-        outraPessoa.setCursoDesejado("Java");
-        outraPessoa.setTelefone("11-955446622");
 
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobrenomeAluno = findViewById(R.id.editSobrenomeAluno);
@@ -57,25 +39,33 @@ public class MainActivity extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnSalvar);
         btnFinalizar = findViewById(R.id.btnFinalizar);
 
-        editPrimeiroNome.setText(outraPessoa.getPrimeiroNome());
-        editSobrenomeAluno.setText(outraPessoa.getSobreNome());
-        editNomeCurso.setText(outraPessoa.getCursoDesejado());
-        editTelefoneContato.setText(outraPessoa.getTelefone());
+        btnLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editPrimeiroNome.setText("");
+                editSobrenomeAluno.setText("");
+                editTelefoneContato.setText("");
+                editNomeCurso.setText("");
+            }
+        });
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"Volte Sempre", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pessoa.setPrimeiroNome(editPrimeiroNome.getText().toString());
+                pessoa.setSobreNome(editSobrenomeAluno.getText().toString());
+                pessoa.setCursoDesejado(editNomeCurso.getText().toString());
+                pessoa.setTelefone(editTelefoneContato.getText().toString());
+                Toast.makeText(MainActivity.this,"Salvo " + pessoa.toString(), Toast.LENGTH_LONG).show();
 
-        /*
-        dadosPessoa = "Primeiro nome: ";
-        dadosPessoa += pessoa.getPrimeiroNome();
-        dadosPessoa += " Sobrenome: ";
-        dadosPessoa += pessoa.getSobreNome();
-        dadosPessoa += " Curso Desejado: ";
-        dadosPessoa += pessoa.getCursoDesejado();
-        dadosPessoa += "Telefone Contato";
-        dadosPessoa += pessoa.getTelefone();
-        */
-
-
+            }
+        });
         Log.i(getClass().getName(), pessoa.toString());
-        Log.i(getClass().getName(), outraPessoa.toString());
-
     }
 }
