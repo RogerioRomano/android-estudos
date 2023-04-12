@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         sharedPreferences = getSharedPreferences(NAME_PREFERENCES, 0);
         SharedPreferences.Editor listaVip = sharedPreferences.edit();
 
@@ -40,13 +41,25 @@ public class MainActivity extends AppCompatActivity {
 
         pessoa = new Pessoa();
 
+        pessoa.setPrimeiroNome(sharedPreferences.getString("primeiroNome", ""));
+        pessoa.setSobreNome(sharedPreferences.getString("sobreNome", ""));
+        pessoa.setCursoDesejado(sharedPreferences.getString("nomeCurso", ""));
+        pessoa.setTelefone(sharedPreferences.getString("telefoneContato", ""));
+
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobrenomeAluno = findViewById(R.id.editSobrenomeAluno);
         editNomeCurso = findViewById(R.id.editNomeCurso);
         editTelefoneContato = findViewById(R.id.editTelefoneContato);
+
+        editPrimeiroNome.setText(pessoa.getPrimeiroNome());
+        editSobrenomeAluno.setText(pessoa.getSobreNome());
+        editNomeCurso.setText(pessoa.getCursoDesejado());
+        editTelefoneContato.setText(pessoa.getTelefone());
+
         btnLimpar = findViewById(R.id.btnLimpar);
         btnSalvar = findViewById(R.id.btnSalvar);
         btnFinalizar = findViewById(R.id.btnFinalizar);
+
         btnLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
