@@ -15,10 +15,7 @@ import com.devandroid.applistacurso.controller.PessoaController;
 import com.devandroid.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
-    SharedPreferences sharedPreferences;
 
-    SharedPreferences.Editor listaVip;
-    public static final String NAME_PREFERENCES = "pref_listavip";
     PessoaController controller;
     Pessoa pessoa;
     Pessoa outraPessoa;
@@ -36,17 +33,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        sharedPreferences = getSharedPreferences(NAME_PREFERENCES, 0);
-        listaVip = sharedPreferences.edit();
-
-        controller = new PessoaController();
+        controller = new PessoaController(MainActivity.this);
 
         pessoa = new Pessoa();
-
-        pessoa.setPrimeiroNome(sharedPreferences.getString("primeiroNome", ""));
-        pessoa.setSobreNome(sharedPreferences.getString("sobreNome", ""));
-        pessoa.setCursoDesejado(sharedPreferences.getString("nomeCurso", ""));
-        pessoa.setTelefone(sharedPreferences.getString("telefoneContato", ""));
+        controller.buscar(pessoa);
 
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobrenomeAluno = findViewById(R.id.editSobrenomeAluno);
@@ -69,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 editSobrenomeAluno.setText("");
                 editTelefoneContato.setText("");
                 editNomeCurso.setText("");
-
-                listaVip.clear();
-                listaVip.apply();
+                controller.limpar();
             }
         });
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
@@ -90,12 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 pessoa.setTelefone(editTelefoneContato.getText().toString());
 
                 Toast.makeText(MainActivity.this,"Salvo " + pessoa.toString(), Toast.LENGTH_LONG).show();
-
-                listaVip.putString("primeiroNome", pessoa.getPrimeiroNome());
-                listaVip.putString("sobreNome", pessoa.getSobreNome());
-                listaVip.putString("nomeCurso", pessoa.getCursoDesejado());
-                listaVip.putString("telefoneContato", pessoa.getTelefone());
-                listaVip.apply();
 
                 controller.salvar(pessoa);
             }
