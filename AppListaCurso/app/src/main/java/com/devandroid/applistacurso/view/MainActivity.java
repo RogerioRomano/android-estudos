@@ -11,30 +11,35 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.devandroid.applistacurso.R;
+import com.devandroid.applistacurso.controller.CursoController;
 import com.devandroid.applistacurso.controller.PessoaController;
+import com.devandroid.applistacurso.model.Curso;
 import com.devandroid.applistacurso.model.Pessoa;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    PessoaController controller;
-    Pessoa pessoa;
-    Pessoa outraPessoa;
-    EditText editPrimeiroNome;
-    EditText editSobrenomeAluno;
-    EditText editNomeCurso;
-    EditText editTelefoneContato;
-    Button btnLimpar;
-    Button btnSalvar;
-    Button btnFinalizar;
+    private PessoaController controller;
+    private CursoController cursoController;
+
+    private List<Curso> lisaDeCursos;
+    private Pessoa pessoa;
+    private EditText editPrimeiroNome;
+    private EditText editSobrenomeAluno;
+    private EditText editNomeCurso;
+    private EditText editTelefoneContato;
+    private Button btnLimpar;
+    private Button btnSalvar;
+    private Button btnFinalizar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         controller = new PessoaController(MainActivity.this);
-
+        cursoController = new CursoController();
+        lisaDeCursos = cursoController.getListaDeCursos();
         pessoa = new Pessoa();
         controller.buscar(pessoa);
 
