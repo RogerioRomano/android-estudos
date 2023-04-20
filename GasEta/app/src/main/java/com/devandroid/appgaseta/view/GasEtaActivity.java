@@ -15,8 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.devandroid.appgaseta.R;
 import com.devandroid.appgaseta.apoio.UtilGasEta;
 import com.devandroid.appgaseta.controller.GasEtaController;
+import com.devandroid.appgaseta.model.Combustivel;
 
 public class GasEtaActivity extends AppCompatActivity {
+
+    private Combustivel combustivelGasolina;
+    private Combustivel combustivelEtanol;
     private EditText editGasolina;
     private EditText editEtanol;
     private TextView txtResultado;
@@ -25,6 +29,10 @@ public class GasEtaActivity extends AppCompatActivity {
     private Button btnSalvar;
     private Button btnFinalizar;
     private GasEtaController gasEtaController;
+    private double precoGasolina;
+    private double precoEtanol;
+    private String recomendacao;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,10 +67,10 @@ public class GasEtaActivity extends AppCompatActivity {
                 }
 
                 if (isDadosOk) {
-                    double precoGasolina = Double.parseDouble(editGasolina.getText().toString());
-                    double precoEtanol = Double.parseDouble(editEtanol.getText().toString());
-                    String melhorOpcao = UtilGasEta.calcularMelhorOpcao(precoGasolina, precoEtanol);
-                    txtResultado.setText(melhorOpcao);
+                    precoGasolina = Double.parseDouble(editGasolina.getText().toString());
+                    precoEtanol = Double.parseDouble(editEtanol.getText().toString());
+                    recomendacao = UtilGasEta.calcularMelhorOpcao(precoGasolina, precoEtanol);
+                    txtResultado.setText(recomendacao);
                     return;
                 }
 
@@ -88,6 +96,19 @@ public class GasEtaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                //TODO Desabilitar o botão salvar
+
+                combustivelGasolina = new Combustivel();
+                combustivelEtanol = new Combustivel();
+
+                combustivelGasolina.setNomeDoCombustivel("Gasolina");
+                combustivelGasolina.setPrecoDoCombustivel(precoGasolina);
+
+                combustivelEtanol.setNomeDoCombustivel("Etanol");
+                combustivelEtanol.setPrecoDoCombustivel(precoEtanol);
+
+                combustivelGasolina.setRecomendacao(UtilGasEta.calcularMelhorOpcao(precoGasolina, precoEtanol));
+                combustivelEtanol.setRecomendacao(UtilGasEta.calcularMelhorOpcao(precoGasolina, precoEtanol));
             }
         });
 
