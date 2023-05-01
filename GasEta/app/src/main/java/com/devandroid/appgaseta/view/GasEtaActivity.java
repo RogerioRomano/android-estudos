@@ -17,6 +17,8 @@ import com.devandroid.appgaseta.apoio.UtilGasEta;
 import com.devandroid.appgaseta.controller.CombustivelController;
 import com.devandroid.appgaseta.model.Combustivel;
 
+import java.util.List;
+
 public class GasEtaActivity extends AppCompatActivity {
     private CombustivelController controller;
     private Combustivel combustivelGasolina;
@@ -31,6 +33,7 @@ public class GasEtaActivity extends AppCompatActivity {
     private double precoGasolina;
     private double precoEtanol;
     private String recomendacao;
+    private List<Combustivel> dados;
 
 
     @Override
@@ -38,6 +41,15 @@ public class GasEtaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gaseta);
         controller = new CombustivelController(GasEtaActivity.this);
+        dados = controller.getListaDeDados();
+
+        Combustivel objetoAlteracao = dados.get(1);
+        objetoAlteracao.setNomeDoCombustivel("**Gasolina**");
+        objetoAlteracao.setPrecoDoCombustivel(5.97);
+        objetoAlteracao.setRecomendacao("**Abastecer com Gasolina**");
+
+        controller.alterar(objetoAlteracao);
+
         editGasolina = findViewById(R.id.editGasolina);
         editEtanol = findViewById(R.id.editEtanol);
         txtResultado = findViewById(R.id.txtResultado);
@@ -110,6 +122,7 @@ public class GasEtaActivity extends AppCompatActivity {
                 controller.salvar(combustivelGasolina);
                 controller.salvar(combustivelEtanol);
 
+
             }
         });
 
@@ -122,7 +135,8 @@ public class GasEtaActivity extends AppCompatActivity {
         });
 
         Toast.makeText(GasEtaActivity.this,
-                UtilGasEta.calcularMelhorOpcao(5.12,3.60),
+//                UtilGasEta.calcularMelhorOpcao(5.12,3.60),
+                "Seja Bem Vindo",
                 Toast.LENGTH_LONG).show();
 
 
